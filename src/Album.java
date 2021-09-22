@@ -13,7 +13,7 @@ public class Album
     {
         if (object == null || this == null) return false;
 
-        if ((object instanceof Album)) return false;
+        if (!(object instanceof Album)) return false;
 
         Album obj = (Album) object;
 

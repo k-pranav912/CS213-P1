@@ -5,9 +5,7 @@ public class Date implements Comparable<Date>{
     private int month;
     private int day;
 
-    //TODO add toString for date.
-
-    public Date(String date) {  //take "mm/dd/yy" and create a Date object
+    public Date(String date) {  //take "mm/dd/yyyy" and create a Date object
 
         final int yearIndex = 6;
         final int monthStartIndex = 0;
@@ -23,11 +21,15 @@ public class Date implements Comparable<Date>{
 
 
     }
-    public Date() {
-        Calendar c = Calendar.getInstance();
-        int x = c.get(Calendar.DATE);
-        System.out.println(x);
-    } //create an object with today's date (see Calendar class)
+    public Date() {  //create an object with today's date (see Calendar class)
+        Calendar calInstance = Calendar.getInstance();
+        //System.out.println(calInstance.getTimeZone());
+
+        this.year =  calInstance.get(Calendar.YEAR)%1000;
+        //System.out.println(calInstance.get(Calendar.MONTH));
+        this.month = calInstance.get(Calendar.MONTH) + 1;
+        this.day = calInstance.get(Calendar.DATE);
+    }
 
     public boolean isValid() {
         return false;
@@ -38,18 +40,12 @@ public class Date implements Comparable<Date>{
         if (this.year == date.month) {
             if (this.month == date.month) {
 
-                if (this.day == date.day) {
-                    return 0;
-                } else if (this.day < date.day) {
-                    return -1;
-                } else {
-                    return 1;
-                }
+                return Integer.compare(this.day, date.day);
 
-            } else if (this.month < date.month) {
-                return -1;
+            //} else if (this.month < date.month) {
+             //   return -1;
             } else {
-                return 1;
+                return Integer.compare(this.month, date.month);
             }
         } else if (this.year < date.year) {
             return -1;
@@ -59,11 +55,14 @@ public class Date implements Comparable<Date>{
 
     @Override
     public String toString() {
-        return this.month + "/" + this.day + "/" + this.year;
+        return String.format("%02d", this.month) + "/" +
+                String.format("%02d", this.day) + "/" +
+                String.format("%02d", this.year);
     }
 
     public static void main(String[] args) {
         Date x = new Date();
+        System.out.println(x);
     }
 
 }
