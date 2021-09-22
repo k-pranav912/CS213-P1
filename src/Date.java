@@ -29,12 +29,31 @@ public class Date implements Comparable<Date>{
 
     @Override
     public int compareTo(Date date) {
-        if (this.year == date.month && this.month == date.month && this.day == date.day) {
-            return 0;
-        } else if () {
+        if (this.year == date.month) {
+            if (this.month == date.month) {
 
+                if (this.day == date.day) {
+                    return 0;
+                } else if (this.day < date.day) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+
+            } else if (this.month < date.month) {
+                return -1;
+            } else {
+                return 1;
+            }
+        } else if (this.year < date.year) {
+            return -1;
         }
-        return 0;
+        return 1;
+    }
+
+    @Override
+    public String toString() {
+        return this.month + "/" + this.day + "/" + this.year;
     }
 
 }
