@@ -1,3 +1,5 @@
+import java.util.Calendar;
+
 public class Date implements Comparable<Date>{
     private int year;
     private int month;
@@ -21,7 +23,11 @@ public class Date implements Comparable<Date>{
 
 
     }
-    public Date() {} //create an object with today's date (see Calendar class)
+    public Date() {
+        Calendar c = Calendar.getInstance();
+        int x = c.get(Calendar.DATE);
+        System.out.println(x);
+    } //create an object with today's date (see Calendar class)
 
     public boolean isValid() {
         return false;
@@ -54,6 +60,10 @@ public class Date implements Comparable<Date>{
     @Override
     public String toString() {
         return this.month + "/" + this.day + "/" + this.year;
+    }
+
+    public static void main(String[] args) {
+        Date x = new Date();
     }
 
 }

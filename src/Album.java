@@ -7,26 +7,30 @@ public class Album
     private boolean isAvailable;
 
     public Album() {}
+
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(Object object)
     {
-        if (obj == NULL || this == NULL) return false;
-        if (obj.title == NULL || this.title == NULL) return false;
-        if (obj.artist == NULL || this.artist == NULL) return false;
+        if (object == null || this == null) return false;
+
+        if ((object instanceof Album)) return false;
+
+        Album obj = (Album) object;
+
+        if (obj.title == null || this.title == null) return false;
+        if (obj.artist == null || this.artist == null) return false;
 
         return this.title.equals(obj.title) && this.artist.equals(obj.artist);
     }
     @Override
     public String toString()
     {
+        String availability = "is not available";
         if (isAvailable)
         {
-            String availability = "is available";
+            availability = "is available";
         }
-        else
-        {
-            String availability = "is not available";
-        }
+
         return title + "::" + artist + "::" + genre + "::" + releaseDate.toString() + "::" + availability;
     }
 }
