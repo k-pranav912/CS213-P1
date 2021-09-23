@@ -1,12 +1,14 @@
-
-
 public class Album
 {
     public static void main(String[] args)
     {
-        Date hi = new Date();
+        Date testDate = new Date();
         Album newAlbum = new Album("I don't have one",
-                "Everyone", Genre.toGenre("Jazz"), hi, false);
+                "Everyone", Genre.toGenre("stuff"), testDate, true);
+        Album secondAlbum = new Album(" don't have one",
+                "Everyone", Genre.toGenre("stuff"), testDate, false);
+
+        System.out.println(newAlbum.equals(secondAlbum));
         System.out.println(newAlbum);
     }
     private String title;
@@ -23,7 +25,11 @@ public class Album
         this.releaseDate = releaseDate;
         this.isAvailable = isAvailable;
     }
-
+    public Album(String title, String artist)
+    {
+        this.title = title;
+        this.artist = artist;
+    }
 
     @Override
     public boolean equals(Object object)

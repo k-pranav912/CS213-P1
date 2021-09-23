@@ -7,10 +7,10 @@ public enum Genre
     {
         switch (genreString)
         {
-            case "Classical": return CLASSICAL;
-            case "Country": return COUNTRY;
-            case "Jazz": return JAZZ;
-            case "Pop": return POP;
+            case "classical": return CLASSICAL;
+            case "country": return COUNTRY;
+            case "jazz": return JAZZ;
+            case "pop": return POP;
             default: return UNKNOWN;
         }
     }

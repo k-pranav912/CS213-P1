@@ -1,6 +1,14 @@
 public class Collection {
+    private static final int ALBUM_INCREASE_SIZE = 4;
+
     private Album[] albums;
     private int numAlbums; //number of albums currently in the collection
+
+    public Collection()
+    {
+        numAlbums = ALBUM_INCREASE_SIZE;
+        albums = new Album[numAlbums];
+    }
 
     private int find(Album album) {
         return 0;
