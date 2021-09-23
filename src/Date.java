@@ -5,6 +5,19 @@ public class Date implements Comparable<Date>{
     private int month;
     private int day;
 
+    private static final int QUADRENNIAL = 4;
+    private static final int CENTENNIAL = 100;
+    private static final int QUATERCENTENNIAL = 400;
+
+    private static final int[] thirtyOneMonths = {1,3,5,7,8,10,12};
+    private static final int maxMonths = 12;
+    private static final int febMonth = 2;
+    private static final int thirtyOneDays = 31;
+    private static final int thirtyDays = 30;
+    private static final int febNonLeapDays = 28;
+    private static final int febLeapDays = 29;
+    private static final int minYear = 1980;
+
     public Date(String date) {  //take "mm/dd/yyyy" and create a Date object
 
         final int yearIndex = 6;
@@ -19,6 +32,8 @@ public class Date implements Comparable<Date>{
         this.month = Integer.parseInt(date.substring(monthStartIndex, monthEndIndex));
         this.day = Integer.parseInt(date.substring(dayStartIndex, dayEndIndex));
 
+        assert this.isValid();
+
 
     }
     public Date() {  //create an object with today's date (see Calendar class)
@@ -32,10 +47,7 @@ public class Date implements Comparable<Date>{
 
     private static boolean isLeap(Date date) {
 
-        final int QUADRENNIAL = 4;
-        final int CENTENNIAL = 100;
-        final int QUATERCENTENNIAL = 400;
-        final int start = 0;
+        int start = 0;
 
         switch (start) {
 
@@ -52,8 +64,39 @@ public class Date implements Comparable<Date>{
         return false;
     }
 
-    public boolean isValid() {
+    private static boolean check(int[] arr, int key) {
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == key) return true;
+        }
+
         return false;
+
+    }
+
+    public boolean isValid() {
+        if (this.year < minYear) return false;
+        if (this.month <= 0 || this.day <= 0) return false;
+
+        Date tempDate = new Date();
+        if (this.compareTo(tempDate) > 1) return false;
+
+        if (this.month > maxMonths) return false;
+
+        if (this.month == febMonth) {
+            if (isLeap(this)) {
+                return (this.day <= febLeapDays);
+            } else {
+                return (this.day <= febNonLeapDays);
+            }
+        }
+
+        if (check(thirtyOneMonths, this.month)) {
+            return (this.day <= thirtyOneDays);
+        } else {
+            return this.day <= thirtyDays;
+        }
+
     }
 
     @Override
@@ -78,11 +121,12 @@ public class Date implements Comparable<Date>{
     }
 
     public static void main(String[] args) {
-        Date x = new Date("08/31/2010");
+        Date x = new Date("02/28/2010");
         Date y = new Date ("08/31/2001");
         System.out.println(x);
         System.out.println(y);
         System.out.println(x.compareTo(y));
+        System.out.println(x.isValid());
     }
 
 }
