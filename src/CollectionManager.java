@@ -13,14 +13,29 @@ public class CollectionManager {
         switch (strTokens.nextToken())
         {
             case "A":
-                Album newAlbum = new Album(strTokens.nextToken(), strTokens.nextToken(), Genre.toGenre(strTokens.nextToken()),
-                        new Date(strTokens.nextToken()), true);
+                String title = strTokens.nextToken();
+                String artist = strTokens.nextToken();
+                Genre genre = Genre.toGenre(strTokens.nextToken());
+                Date releaseDate;
+
+                try
+                {
+                    releaseDate = new Date(strTokens.nextToken());
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Invalid Date!");
+                    break;
+                }
+
+                Album newAlbum = new Album(title, artist, genre, releaseDate, true);
                 if (userCollection.add(newAlbum)) System.out.println(newAlbum.toString() + " >> added.");
                 else System.out.println(newAlbum.toString() + " >> is already in the collection");
                 break;
             case "D":
                 Album deleteAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
                 if (userCollection.remove(deleteAlbum)) System.out.println(deleteAlbum.toString() + " >> deleted");
+                else System.out.println(deleteAlbum.toString() + " >> is not in the collection");
                 break;
             default: return false;
         }
