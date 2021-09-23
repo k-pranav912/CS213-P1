@@ -4,12 +4,13 @@ import java.util.StringTokenizer;
 public class CollectionManager {
     public static void exitManager()
     {
-        System.out.println("Collection Manager terminated");
+        System.out.println("Collection Manager terminated.");
         System.exit(0);
     }
 
     public boolean parseTokens(StringTokenizer strTokens, Collection userCollection)
     {
+        if(strTokens.hasMoreTokens() == false) return false;
         switch (strTokens.nextToken())
         {
             case "A":
@@ -30,12 +31,35 @@ public class CollectionManager {
 
                 Album newAlbum = new Album(title, artist, genre, releaseDate, true);
                 if (userCollection.add(newAlbum)) System.out.println(newAlbum.toString() + " >> added.");
-                else System.out.println(newAlbum.toString() + " >> is already in the collection");
+                else System.out.println(newAlbum.toString() + " >> is already in the collection.");
                 break;
+
             case "D":
                 Album deleteAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
-                if (userCollection.remove(deleteAlbum)) System.out.println(deleteAlbum.toString() + " >> deleted");
-                else System.out.println(deleteAlbum.toString() + " >> is not in the collection");
+                if (userCollection.remove(deleteAlbum)) System.out.println(deleteAlbum.toString() + " >> deleted.");
+                else System.out.println(deleteAlbum.toString() + " >> is not in the collection.");
+                break;
+
+            case "L":
+                Album lendAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
+                if (userCollection.lendingOut(lendAlbum)) System.out.println(lendAlbum.toString() +
+                        " >> lending out and set to not available.");
+                else System.out.println(lendAlbum.toString() + " >> is not in the collection.");
+                break;
+            case "R":
+                Album returnAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
+                if (userCollection.returnAlbum(returnAlbum)) System.out.println(returnAlbum.toString() +
+                        " >> returning and set to available.");
+                else System.out.println(returnAlbum.toString() + " >> is not in the collection.");
+                break;
+            case "P":
+                userCollection.print();
+                break;
+            case "PD":
+                userCollection.printByReleaseDate();
+                break;
+            case "PG":
+                userCollection.printByGenre();
                 break;
             default: return false;
         }
@@ -45,7 +69,7 @@ public class CollectionManager {
     public void run()
     {
         Collection userCollection = new Collection();
-        System.out.println("Collection Manager starts running");
+        System.out.println("Collection Manager starts running.");
         Scanner sc = new Scanner(System.in);
         while(true)
         {

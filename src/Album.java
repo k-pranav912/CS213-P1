@@ -58,6 +58,7 @@ public class Album
     @Override
     public String toString()
     {
+        if (this.genre == null) return title + "::" + artist;
         return title + "::" + artist + "::" + genre.toString()
                 + "::" + releaseDate.toString() + "::" + this.availabilityToString();
     }
