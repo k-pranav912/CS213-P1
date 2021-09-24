@@ -32,7 +32,7 @@ public class Date implements Comparable<Date>{
         this.month = Integer.parseInt(date.substring(monthStartIndex, monthEndIndex));
         this.day = Integer.parseInt(date.substring(dayStartIndex, dayEndIndex));
 
-        if (!this.isValid()) throw new AssertionError();
+        if (!this.isValid()) throw new AssertionError("Invalid Date");
 
 
     }
@@ -121,7 +121,7 @@ public class Date implements Comparable<Date>{
     }
 
     public static void main(String[] args) {
-        Date x = new Date("02/28/2200");
+        Date x = new Date("02/29/2001");
         Date y = new Date ("08/31/2001");
         Date z = new Date();
         System.out.println(x);
