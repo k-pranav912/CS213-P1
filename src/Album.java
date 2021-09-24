@@ -31,6 +31,18 @@ public class Album
         this.artist = artist;
     }
 
+    public int getGenreIndex()
+    {
+        return this.genre.toIndex();
+    }
+
+    public boolean changeAvailability(boolean newValue)
+    {
+        if (isAvailable == newValue) return false;
+        isAvailable = newValue;
+        return true;
+    }
+
     @Override
     public boolean equals(Object object)
     {

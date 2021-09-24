@@ -44,13 +44,13 @@ public class CollectionManager {
                 Album lendAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
                 if (userCollection.lendingOut(lendAlbum)) System.out.println(lendAlbum.toString() +
                         " >> lending out and set to not available.");
-                else System.out.println(lendAlbum.toString() + " >> is not in the collection.");
+                else System.out.println(lendAlbum.toString() + " >> is not available.");
                 break;
             case "R":
                 Album returnAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
                 if (userCollection.returnAlbum(returnAlbum)) System.out.println(returnAlbum.toString() +
                         " >> returning and set to available.");
-                else System.out.println(returnAlbum.toString() + " >> is not in the collection.");
+                else System.out.println(returnAlbum.toString() + " >> return cannot be completed.");
                 break;
             case "P":
                 userCollection.print();
