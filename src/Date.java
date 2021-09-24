@@ -18,7 +18,7 @@ public class Date implements Comparable<Date>{
     private static final int febLeapDays = 29;
     private static final int minYear = 1980;
 
-    public Date(String date) {  //take "mm/dd/yyyy" and create a Date object
+    public Date(String date) throws AssertionError {  //take "mm/dd/yyyy" and create a Date object
 
         final int yearIndex = 6;
         final int monthStartIndex = 0;
@@ -32,7 +32,7 @@ public class Date implements Comparable<Date>{
         this.month = Integer.parseInt(date.substring(monthStartIndex, monthEndIndex));
         this.day = Integer.parseInt(date.substring(dayStartIndex, dayEndIndex));
 
-        assert this.isValid();
+        if (!this.isValid()) throw new AssertionError();
 
 
     }
@@ -66,8 +66,8 @@ public class Date implements Comparable<Date>{
 
     private static boolean check(int[] arr, int key) {
 
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == key) return true;
+        for (int j : arr) {
+            if (j == key) return true;
         }
 
         return false;
@@ -79,7 +79,7 @@ public class Date implements Comparable<Date>{
         if (this.month <= 0 || this.day <= 0) return false;
 
         Date tempDate = new Date();
-        if (this.compareTo(tempDate) > 1) return false;
+        if (this.compareTo(tempDate) == 1) return false;
 
         if (this.month > maxMonths) return false;
 
@@ -121,12 +121,14 @@ public class Date implements Comparable<Date>{
     }
 
     public static void main(String[] args) {
-        Date x = new Date("02/28/2010");
+        Date x = new Date("02/28/2200");
         Date y = new Date ("08/31/2001");
+        Date z = new Date();
         System.out.println(x);
         System.out.println(y);
-        System.out.println(x.compareTo(y));
+        System.out.println(x.compareTo(z));
         System.out.println(x.isValid());
+
     }
 
 }
