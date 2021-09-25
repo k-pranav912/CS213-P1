@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 public class Collection {
     private static final int ALBUM_INCREASE_SIZE = 4;
     private static final int NOT_FOUND = -1;
@@ -87,7 +89,65 @@ public class Collection {
         System.out.println("*End of List");
     } //display the list without specifying the order
 
+    private int[] arrSort(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = i+1; j < arr.length; j++) {
+                int temp = 0;
+                if (arr[i] > arr[j]) {
+                    temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+
+        return arr;
+    }
+
+    private int[] genDateArray() {
+
+        HashMap<Integer, Integer> tempMap = new HashMap<>();
+
+        for (int i = 0; i < albums.length; i++) {
+            if ((albums[i] != null) && (!tempMap.containsKey(albums[i].getDateYear()))) {
+                tempMap.put(albums[i].getDateYear(), 0);
+            }
+        }
+
+        int[] tempArr = new int[tempMap.size()];
+
+        int tempIndex = 0;
+        for (int key: tempMap.keySet()) {
+            tempArr[tempIndex] = key;
+            tempIndex++;
+        }
+
+        tempArr = arrSort(tempArr);
+
+        return tempArr;
+    }
+
     public void printByReleaseDate() {
+        if (numAlbums <= 0)
+        {
+            System.out.println("The collection is empty!");
+            return;
+        }
+
+        int[] releaseDates = genDateArray();
+
+        System.out.println("*List of albums in the collection.");
+        for (int i = 0; i < releaseDates.length; i++) {
+
+            for (int j = 0; j < albums.length; j++) {
+
+                if (albums[j] != null && albums[j].getDateYear() == i) System.out.println(albums[j]);
+
+            }
+
+        }
+        System.out.println("*End of List");
+
     }
 
     public void printByGenre()
