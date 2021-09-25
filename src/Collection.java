@@ -141,7 +141,7 @@ public class Collection {
 
             for (int j = 0; j < albums.length; j++) {
 
-                if (albums[j] != null && albums[j].getDateYear() == i) System.out.println(albums[j]);
+                if (albums[j] != null && albums[j].getDateYear() == releaseDates[i]) System.out.println(albums[j]);
 
             }
 
@@ -167,5 +167,21 @@ public class Collection {
             }
         }
         System.out.println("*End of List");
+    }
+
+    public static void main(String[] args) {
+
+        Collection usr = new Collection();
+        usr.add(new Album("1", "def",Genre.toGenre("pop") , new Date("08/31/2000"), true));
+        usr.add(new Album("2", "def",Genre.toGenre("pop") , new Date("08/31/1999"), true));
+        usr.add(new Album("3", "def",Genre.toGenre("pop") , new Date("08/31/2011"), true));
+        usr.add(new Album("4", "def",Genre.toGenre("pop") , new Date("08/31/1983"), true));
+        usr.add(new Album("abcd", "def",Genre.toGenre("pop") , new Date("08/30/2000"), true));
+
+        usr.print();
+        System.out.println();
+        usr.printByReleaseDate();
+
+
     }
 }
