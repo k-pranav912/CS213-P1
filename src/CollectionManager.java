@@ -46,22 +46,28 @@ public class CollectionManager {
                         " >> lending out and set to not available.");
                 else System.out.println(lendAlbum.toString() + " >> is not available.");
                 break;
+
             case "R":
                 Album returnAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
                 if (userCollection.returnAlbum(returnAlbum)) System.out.println(returnAlbum.toString() +
                         " >> returning and set to available.");
                 else System.out.println(returnAlbum.toString() + " >> return cannot be completed.");
                 break;
+
             case "P":
                 userCollection.print();
                 break;
+
             case "PD":
                 userCollection.printByReleaseDate();
                 break;
+
             case "PG":
                 userCollection.printByGenre();
                 break;
-            default: return false;
+
+            default:
+                return false;
         }
         return true;
     }
