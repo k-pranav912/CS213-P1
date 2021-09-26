@@ -17,13 +17,8 @@ public class CollectionManager {
                 String title = strTokens.nextToken();
                 String artist = strTokens.nextToken();
                 Genre genre = Genre.toGenre(strTokens.nextToken());
-                Date releaseDate;
-
-                try
-                {
-                    releaseDate = new Date(strTokens.nextToken());
-                }
-                catch (Exception e)
+                Date releaseDate = new Date(strTokens.nextToken());
+                if (releaseDate.isValid() == false)
                 {
                     System.out.println("Invalid Date!");
                     break;
