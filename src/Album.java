@@ -74,4 +74,8 @@ public class Album
         return title + "::" + artist + "::" + genre.toString()
                 + "::" + releaseDate.toString() + "::" + this.availabilityToString();
     }
+
+    public int getDateYear() {
+        return this.releaseDate.getYear();
+    }
 }

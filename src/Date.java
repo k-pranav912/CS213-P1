@@ -120,6 +120,10 @@ public class Date implements Comparable<Date>{
                 String.format("%04d", this.year);
     }
 
+    public int getYear() {
+        return this.year;
+    }
+
     public static void main(String[] args) {
         Date x = new Date("02/29/2001");
         Date y = new Date ("08/31/2001");
