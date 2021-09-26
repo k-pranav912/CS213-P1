@@ -75,7 +75,7 @@ public class Album
                 + "::" + releaseDate.toString() + "::" + this.availabilityToString();
     }
 
-    public int getDateYear() {
-        return this.releaseDate.getYear();
+    public int getDate() {
+        return this.releaseDate.getDateIndex();
     }
 }

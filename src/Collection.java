@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public class Collection {
     private static final int ALBUM_INCREASE_SIZE = 4;
     private static final int NOT_FOUND = -1;
@@ -89,7 +87,7 @@ public class Collection {
         System.out.println("*End of List");
     } //display the list without specifying the order
 
-    private int[] arrSort(int[] arr) {
+    public static int[] arrSort(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             for (int j = i+1; j < arr.length; j++) {
                 int temp = 0;
@@ -104,22 +102,22 @@ public class Collection {
         return arr;
     }
 
-    private int[] genDateArray() {
+    private boolean checkArray(int[] arr, int key) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == key) return true;
+        }
+        return false;
+    }
 
-        HashMap<Integer, Integer> tempMap = new HashMap<>();
+    private int[] genDateArray() {
+        int[] tempArr = new int[numAlbums];
+        int arrIndex = 0;
 
         for (int i = 0; i < albums.length; i++) {
-            if ((albums[i] != null) && (!tempMap.containsKey(albums[i].getDateYear()))) {
-                tempMap.put(albums[i].getDateYear(), 0);
+            if (albums[i] != null && !checkArray(tempArr, albums[i].getDate())) {
+                tempArr[arrIndex] = albums[i].getDate();
+                arrIndex++;
             }
-        }
-
-        int[] tempArr = new int[tempMap.size()];
-
-        int tempIndex = 0;
-        for (int key: tempMap.keySet()) {
-            tempArr[tempIndex] = key;
-            tempIndex++;
         }
 
         tempArr = arrSort(tempArr);
@@ -128,8 +126,7 @@ public class Collection {
     }
 
     public void printByReleaseDate() {
-        if (numAlbums <= 0)
-        {
+        if (numAlbums <= 0) {
             System.out.println("The collection is empty!");
             return;
         }
@@ -138,10 +135,11 @@ public class Collection {
 
         System.out.println("*List of albums in the collection.");
         for (int i = 0; i < releaseDates.length; i++) {
+            if (releaseDates[i] == 0) continue;
 
             for (int j = 0; j < albums.length; j++) {
 
-                if (albums[j] != null && albums[j].getDateYear() == releaseDates[i]) System.out.println(albums[j]);
+                if (albums[j] != null && albums[j].getDate() == releaseDates[i]) System.out.println(albums[j]);
 
             }
 
@@ -173,15 +171,16 @@ public class Collection {
 
         Collection usr = new Collection();
         usr.add(new Album("1", "def",Genre.toGenre("pop") , new Date("08/31/2000"), true));
+        usr.add(new Album("42", "g43esdf",Genre.toGenre("pop") , new Date("08/31/1983"), true));
         usr.add(new Album("2", "def",Genre.toGenre("pop") , new Date("08/31/1999"), true));
         usr.add(new Album("3", "def",Genre.toGenre("pop") , new Date("08/31/2011"), true));
         usr.add(new Album("4", "def",Genre.toGenre("pop") , new Date("08/31/1983"), true));
         usr.add(new Album("abcd", "def",Genre.toGenre("pop") , new Date("08/30/2000"), true));
+        usr.add(new Album("45", "def",Genre.toGenre("pop") , new Date("08/30/1983"), true));
 
         usr.print();
         System.out.println();
         usr.printByReleaseDate();
-
 
     }
 }

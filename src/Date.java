@@ -18,29 +18,17 @@ public class Date implements Comparable<Date>{
     private static final int febLeapDays = 29;
     private static final int minYear = 1980;
 
-    public Date(String date) throws AssertionError {  //take "mm/dd/yyyy" and create a Date object
+    public Date(String date) {
+        String[] tokens = date.split("/");
 
-        final int yearIndex = 6;
-        final int monthStartIndex = 0;
-        final int monthEndIndex = 2;
-        final int dayStartIndex = 3;
-        final int dayEndIndex = 5;
-
-        if (date.length() != "mm/dd/yyyy".length()) {
-            throw new AssertionError("Invalid Date!");
-        }
-
-        this.year = Integer.parseInt(date.substring(yearIndex));
-        this.month = Integer.parseInt(date.substring(monthStartIndex, monthEndIndex));
-        this.day = Integer.parseInt(date.substring(dayStartIndex, dayEndIndex));
-
-        if (!this.isValid()) throw new AssertionError("Invalid Date!");
-
+        this.year = Integer.parseInt(tokens[2]);
+        this.month = Integer.parseInt(tokens[0]);
+        this.day = Integer.parseInt(tokens[1]);
 
     }
+
     public Date() {  //create an object with today's date (see Calendar class)
         Calendar calInstance = Calendar.getInstance();
-        //System.out.println(calInstance.getTimeZone());
 
         this.year =  calInstance.get(Calendar.YEAR);
         this.month = calInstance.get(Calendar.MONTH) + 1;
@@ -121,11 +109,39 @@ public class Date implements Comparable<Date>{
                 String.format("%04d", this.year);
     }
 
-    public int getYear() {
-        return this.year;
+    public int getDateIndex() {
+        return (this.year * 10000) + (this.month * 100) + (this.day);
     }
 
     public static void main(String[] args) {
+
+        // Test 1
+        // valid date
+        Date test1 = new Date("08/31/2000");
+        if (test1.isValid()) {
+            System.out.println(test1.getDateIndex());
+            System.out.println("Test1: Valid Date!");
+        } else {
+            System.out.println("Test1: Invalid Date!");
+        }
+
+        Date test2 = new Date();
+        if (test2.isValid()) {
+            System.out.println("Test2: Valid Date!");
+        } else {
+            System.out.println("Test2: Invalid Date!");
+        }
+
+        Date test3 = new Date("08/31/1979");
+        if (test3.isValid()) {
+            System.out.println("Test3: Valid Date!");
+        } else {
+            System.out.println("Test3: Invalid Date!");
+        }
+
+    }
+
+    public static void main2(String[] args) {
         /*
         Date x = new Date("02/29/2001");
         Date y = new Date ("08/31/2001");
