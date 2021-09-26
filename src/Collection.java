@@ -11,7 +11,8 @@ public class Collection {
         albums = new Album[ALBUM_INCREASE_SIZE];
     }
 
-    private int find(Album album) {
+    private int find(Album album)
+    {
         for(int i = 0; i < albums.length; i++)
         {
             if (albums[i] != null && albums[i].equals(album)) return i;
@@ -27,7 +28,8 @@ public class Collection {
         }
         return NOT_FOUND;
     }
-    private void grow() {
+    private void grow()
+    {
         Album[] tempAlbums = new Album[albums.length];
         tempAlbums = albums;
         albums = new Album[tempAlbums.length + ALBUM_INCREASE_SIZE];
@@ -37,7 +39,8 @@ public class Collection {
         }
     } //increase the capacity of the array list by 4
 
-    public boolean add(Album album) {
+    public boolean add(Album album)
+    {
         if(find(album) >= 0) return false;
         int indexOfNewAlbum = findNextEmpty();
         if (indexOfNewAlbum < 0)
@@ -50,7 +53,8 @@ public class Collection {
         return true;
     }
 
-    public boolean remove(Album album) {
+    public boolean remove(Album album)
+    {
         int indexOfDeletion = find(album);
         if (indexOfDeletion < 0) return false;
         numAlbums--;
@@ -58,21 +62,24 @@ public class Collection {
         return true;
     }
 
-    public boolean lendingOut(Album album) {
+    public boolean lendingOut(Album album)
+    {
         int indexToLend = find(album);
         if (indexToLend < 0) return false;
         if(albums[indexToLend].changeAvailability(false) == false) return false;
         return true;
     } //set to not available
 
-    public boolean returnAlbum(Album album) {
+    public boolean returnAlbum(Album album)
+    {
         int indexToReturn = find(album);
         if(indexToReturn < 0) return false;
         if(albums[indexToReturn].changeAvailability(true) == false) return false;
         return true;
     } //set to available
 
-    public void print() {
+    public void print()
+    {
         if(numAlbums <= 0)
         {
             System.out.println("The collection is empty!");
@@ -84,12 +91,15 @@ public class Collection {
         {
             if (albums[i] != null) System.out.println(albums[i]);
         }
-        System.out.println("*End of List");
+        System.out.println("*End of list");
     } //display the list without specifying the order
 
-    public static int[] arrSort(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i+1; j < arr.length; j++) {
+    public static int[] arrSort(int[] arr)
+    {
+        for (int i = 0; i < arr.length; i++)
+        {
+            for (int j = i+1; j < arr.length; j++)
+            {
                 int temp = 0;
                 if (arr[i] > arr[j]) {
                     temp = arr[i];
@@ -102,19 +112,24 @@ public class Collection {
         return arr;
     }
 
-    private boolean checkArray(int[] arr, int key) {
-        for (int i = 0; i < arr.length; i++) {
+    private boolean checkArray(int[] arr, int key)
+    {
+        for (int i = 0; i < arr.length; i++)
+        {
             if (arr[i] == key) return true;
         }
         return false;
     }
 
-    private int[] genDateArray() {
+    private int[] genDateArray()
+    {
         int[] tempArr = new int[numAlbums];
         int arrIndex = 0;
 
-        for (int i = 0; i < albums.length; i++) {
-            if (albums[i] != null && !checkArray(tempArr, albums[i].getDate())) {
+        for (int i = 0; i < albums.length; i++)
+        {
+            if (albums[i] != null && !checkArray(tempArr, albums[i].getDate()))
+            {
                 tempArr[arrIndex] = albums[i].getDate();
                 arrIndex++;
             }
@@ -125,8 +140,10 @@ public class Collection {
         return tempArr;
     }
 
-    public void printByReleaseDate() {
-        if (numAlbums <= 0) {
+    public void printByReleaseDate()
+    {
+        if (numAlbums <= 0)
+        {
             System.out.println("The collection is empty!");
             return;
         }
@@ -134,17 +151,16 @@ public class Collection {
         int[] releaseDates = genDateArray();
 
         System.out.println("*List of albums in the collection.");
-        for (int i = 0; i < releaseDates.length; i++) {
+        for (int i = 0; i < releaseDates.length; i++)
+        {
             if (releaseDates[i] == 0) continue;
 
-            for (int j = 0; j < albums.length; j++) {
-
+            for (int j = 0; j < albums.length; j++)
+            {
                 if (albums[j] != null && albums[j].getDate() == releaseDates[i]) System.out.println(albums[j]);
-
             }
-
         }
-        System.out.println("*End of List");
+        System.out.println("*End of list");
 
     }
 
@@ -164,23 +180,6 @@ public class Collection {
                 if (albums[j] != null && albums[j].getGenreIndex() == i) System.out.println(albums[j]);
             }
         }
-        System.out.println("*End of List");
-    }
-
-    public static void main(String[] args) {
-
-        Collection usr = new Collection();
-        usr.add(new Album("1", "def",Genre.toGenre("pop") , new Date("08/31/2000"), true));
-        usr.add(new Album("42", "g43esdf",Genre.toGenre("pop") , new Date("08/31/1983"), true));
-        usr.add(new Album("2", "def",Genre.toGenre("pop") , new Date("08/31/1999"), true));
-        usr.add(new Album("3", "def",Genre.toGenre("pop") , new Date("08/31/2011"), true));
-        usr.add(new Album("4", "def",Genre.toGenre("pop") , new Date("08/31/1983"), true));
-        usr.add(new Album("abcd", "def",Genre.toGenre("pop") , new Date("08/30/2000"), true));
-        usr.add(new Album("45", "def",Genre.toGenre("pop") , new Date("08/30/1983"), true));
-
-        usr.print();
-        System.out.println();
-        usr.printByReleaseDate();
-
+        System.out.println("*End of list");
     }
 }

@@ -1,7 +1,8 @@
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class CollectionManager {
+public class CollectionManager
+{
     public static void exitManager()
     {
         System.out.println("Collection Manager terminated.");

@@ -1,27 +1,35 @@
+import java.util.Locale;
+
 public enum Genre
 {
     CLASSICAL, COUNTRY, JAZZ, POP, UNKNOWN;
     public static final int numGenres = 5;
+    private static final int CLASSICALINDEX = 0;
+    private static final int COUNTRYINDEX = 1;
+    private static final int JAZZINDEX = 2;
+    private static final int POPINDEX = 3;
+    private static final int UNKNOWNINDEX = 4;
 
     public int toIndex()
     {
-        switch(this) {
+        switch(this)
+        {
             case CLASSICAL:
-                return 0;
+                return CLASSICALINDEX;
             case COUNTRY:
-                return 1;
+                return COUNTRYINDEX;
             case JAZZ:
-                return 2;
+                return JAZZINDEX;
             case POP:
-                return 3;
+                return POPINDEX;
             default:
-                return 4;
+                return UNKNOWNINDEX;
         }
     }
 
     public static Genre toGenre(String genreString)
     {
-        switch (genreString)
+        switch (genreString.toLowerCase())
         {
             case "classical":
                 return CLASSICAL;
