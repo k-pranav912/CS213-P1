@@ -1,16 +1,5 @@
 public class Album
 {
-    public static void main(String[] args)
-    {
-        Date testDate = new Date();
-        Album newAlbum = new Album("I don't have one",
-                "Everyone", Genre.toGenre("stuff"), testDate, true);
-        Album secondAlbum = new Album(" don't have one",
-                "Everyone", Genre.toGenre("stuff"), testDate, false);
-
-        System.out.println(newAlbum.equals(secondAlbum));
-        System.out.println(newAlbum);
-    }
     private String title;
     private String artist;
     private Genre genre; //enum class; Classical, Country, Jazz, Pop, Unknown
@@ -75,7 +64,8 @@ public class Album
                 + "::" + releaseDate.toString() + "::" + this.availabilityToString();
     }
 
-    public int getDate() {
+    public int getDate()
+    {
         return this.releaseDate.getDateIndex();
     }
 }

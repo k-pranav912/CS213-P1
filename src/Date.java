@@ -18,53 +18,50 @@ public class Date implements Comparable<Date>{
     private static final int febLeapDays = 29;
     private static final int minYear = 1980;
 
-    public Date(String date) {
+    public Date(String date)
+    {
         String[] tokens = date.split("/");
 
         this.year = Integer.parseInt(tokens[2]);
         this.month = Integer.parseInt(tokens[0]);
         this.day = Integer.parseInt(tokens[1]);
-
     }
 
-    public Date() {  //create an object with today's date (see Calendar class)
+    public Date()
+    {
         Calendar calInstance = Calendar.getInstance();
 
         this.year =  calInstance.get(Calendar.YEAR);
         this.month = calInstance.get(Calendar.MONTH) + 1;
         this.day = calInstance.get(Calendar.DATE);
-    }
+    } //create an object with today's date (see Calendar class)
 
-    private static boolean isLeap(Date date) {
-
+    private static boolean isLeap(Date date)
+    {
         int start = 0;
-
-        switch (start) {
-
-            case 0: if (!(date.year % QUADRENNIAL == 0)) return false;
-
-            case 1: if (!(date.year % CENTENNIAL == 0)) return true;
-
-            case 2: if (!(date.year % QUATERCENTENNIAL == 0)) {
-                        return false;
-                    } else return true;
-
+        switch (start)
+        {
+            case 0:
+                if (!(date.year % QUADRENNIAL == 0)) return false;
+            case 1:
+                if (!(date.year % CENTENNIAL == 0)) return true;
+            case 2:
+                if (!(date.year % QUATERCENTENNIAL == 0)) return false;
+                else return true;
         }
-
         return false;
     }
 
-    private static boolean check(int[] arr, int key) {
-
+    private static boolean check(int[] arr, int key)
+    {
         for (int j : arr) {
             if (j == key) return true;
         }
-
         return false;
-
     }
 
-    public boolean isValid() {
+    public boolean isValid()
+    {
         if (this.year < minYear) return false;
         if (this.month <= 0 || this.day <= 0) return false;
         if (this.month > maxMonths) return false;
@@ -72,55 +69,61 @@ public class Date implements Comparable<Date>{
         Date tempDate = new Date();
         if (this.compareTo(tempDate) == 1) return false;
 
-        if (this.month == febMonth) {
-            if (isLeap(this)) {
+        if (this.month == febMonth)
+        {
+            if (isLeap(this))
+            {
                 return (this.day <= febLeapDays);
-            } else {
+            }
+            else
+            {
                 return (this.day <= febNonLeapDays);
             }
         }
-
-        if (check(thirtyOneMonths, this.month)) {
+        if (check(thirtyOneMonths, this.month))
+        {
             return (this.day <= thirtyOneDays);
-        } else {
+        }
+        else
+        {
             return this.day <= thirtyDays;
         }
-
     }
 
     @Override
-    public int compareTo(Date date) {
-        if (this.year == date.year) {
-            if (this.month == date.month) {
+    public int compareTo(Date date)
+    {
+        if (this.year == date.year)
+        {
+            if (this.month == date.month)
+            {
                 return Integer.compare(this.day, date.day);
-            } else {
+            }
+            else
+            {
                 return Integer.compare(this.month, date.month);
             }
-        } else if (this.year < date.year) {
+        }
+        else if (this.year < date.year)
+        {
             return -1;
         }
         return 1;
     }
 
-    /*
     @Override
-    public String toString() {
-        return String.format("%02d", this.month) + "/" +
-                String.format("%02d", this.day) + "/" +
-                String.format("%04d", this.year);
-    }
-    */
-
-    @Override
-    public String toString() {
+    public String toString()
+    {
         return this.month + "/" + this.day + "/" + this.year;
     }
 
-    public int getDateIndex() {
+    public int getDateIndex()
+    {
         return (this.year * 10000) + (this.month * 100) + (this.day);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
         // Test 1
         // valid date
