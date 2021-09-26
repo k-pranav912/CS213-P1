@@ -26,13 +26,15 @@ public class Date implements Comparable<Date>{
         final int dayStartIndex = 3;
         final int dayEndIndex = 5;
 
-        assert date.length() == "mm/dd/yyyy".length();
+        if (date.length() != "mm/dd/yyyy".length()) {
+            throw new AssertionError("Invalid Date!");
+        }
 
         this.year = Integer.parseInt(date.substring(yearIndex));
         this.month = Integer.parseInt(date.substring(monthStartIndex, monthEndIndex));
         this.day = Integer.parseInt(date.substring(dayStartIndex, dayEndIndex));
 
-        if (!this.isValid()) throw new AssertionError("Invalid Date");
+        if (!this.isValid()) throw new AssertionError("Invalid Date!");
 
 
     }
@@ -77,11 +79,10 @@ public class Date implements Comparable<Date>{
     public boolean isValid() {
         if (this.year < minYear) return false;
         if (this.month <= 0 || this.day <= 0) return false;
+        if (this.month > maxMonths) return false;
 
         Date tempDate = new Date();
         if (this.compareTo(tempDate) == 1) return false;
-
-        if (this.month > maxMonths) return false;
 
         if (this.month == febMonth) {
             if (isLeap(this)) {
@@ -125,6 +126,7 @@ public class Date implements Comparable<Date>{
     }
 
     public static void main(String[] args) {
+        /*
         Date x = new Date("02/29/2001");
         Date y = new Date ("08/31/2001");
         Date z = new Date();
@@ -132,6 +134,106 @@ public class Date implements Comparable<Date>{
         System.out.println(y);
         System.out.println(x.compareTo(z));
         System.out.println(x.isValid());
+        */
+
+        // Test 1
+        // valid date
+        try {
+            Date test1 = new Date("08/31/2000");
+            System.out.println("Test1: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test1: Invalid Date!");
+        }
+
+        // Test 2
+        //valid date with Calendar
+        try {
+            Date test2 = new Date();
+            System.out.println("Test2: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test2: Invalid Date!");
+        }
+
+        // Test 3
+        // invalid date format
+        try {
+            Date test3 = new Date("");
+            System.out.println("Test3: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test3: Invalid Date!");
+        }
+
+        // Test 4
+        // Year less than 1980
+        try {
+            Date test4 = new Date("08/31/1979");
+            System.out.println("Test4: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test4: Invalid Date!");
+        }
+
+        // Test 5
+        // Invalid month (<= 0)
+        try {
+            Date test5 = new Date("00/31/2000");
+            System.out.println("Test5: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test5: Invalid Date!");
+        }
+
+        // Test 6
+        // Invalid month (> 12)
+        try {
+            Date test6 = new Date("13/31/2000");
+            System.out.println("Test6: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test6: Invalid Date!");
+        }
+
+        // Test 7
+        // Invalid day (<= 0)
+        try {
+            Date test7 = new Date("08/00/2000");
+            System.out.println("Test7: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test7: Invalid Date!");
+        }
+
+        //Test 8
+        // Invalid day (> 31)
+        try {
+            Date test8 = new Date("08/32/2000");
+            System.out.println("Test8: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test8: Invalid Date!");
+        }
+
+        //Test 9
+        // Invalid date (> Current Calendar Date)
+        try {
+            Date test9 = new Date("08/31/2023");
+            System.out.println("Test9: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test9: Invalid Date!");
+        }
+
+        //Test 10
+        // Invalid Feb date (>28 on non-Leap Year)
+        try {
+            Date test10 = new Date("02/29/2001");
+            System.out.println("Test10: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test10: Invalid Date!");
+        }
+
+        //Test 11
+        // Invalid date (>31 in April)
+        try {
+            Date test11 = new Date("04/31/2000");
+            System.out.println("Test11: Valid Date!");
+        }   catch (AssertionError e) {
+            System.out.println("Test11: Invalid Date!");
+        }
 
     }
 
