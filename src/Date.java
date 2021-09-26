@@ -102,11 +102,18 @@ public class Date implements Comparable<Date>{
         return 1;
     }
 
+    /*
     @Override
     public String toString() {
         return String.format("%02d", this.month) + "/" +
                 String.format("%02d", this.day) + "/" +
                 String.format("%04d", this.year);
+    }
+    */
+
+    @Override
+    public String toString() {
+        return this.month + "/" + this.day + "/" + this.year;
     }
 
     public int getDateIndex() {
@@ -118,8 +125,9 @@ public class Date implements Comparable<Date>{
         // Test 1
         // valid date
         Date test1 = new Date("08/31/2000");
+        System.out.println(test1);
         if (test1.isValid()) {
-            System.out.println(test1.getDateIndex());
+            //System.out.println(test1.getDateIndex());
             System.out.println("Test1: Valid Date!");
         } else {
             System.out.println("Test1: Invalid Date!");
