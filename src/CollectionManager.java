@@ -20,6 +20,68 @@ public class CollectionManager
     }
 
     /**
+     * Creates and adds the user inputted album to the collection, if the date is valid and it is not
+     * already in the collection
+     * @param strTokens tokenized string of user input, starting after the command
+     * @param userCollection the user's collection of albums
+     */
+    private void addToCollection(StringTokenizer strTokens, Collection userCollection)
+    {
+        String title = strTokens.nextToken();
+        String artist = strTokens.nextToken();
+        Genre genre = Genre.toGenre(strTokens.nextToken());
+        Date releaseDate = new Date(strTokens.nextToken());
+
+        if (releaseDate.isValid() == false)
+        {
+            System.out.println("Invalid Date!");
+            return;
+        }
+
+        Album newAlbum = new Album(title, artist, genre, releaseDate, true);
+        if (userCollection.add(newAlbum)) System.out.println(newAlbum.toString() + " >> added.");
+        else System.out.println(newAlbum.toString() + " >> is already in the collection.");
+    }
+
+    /**
+     * Deletes the user inputted album from the collection, if it exists in the collection
+     * @param strTokens tokenized string of user input, starting after the command
+     * @param userCollection the user's collection of albums
+     */
+    private void deleteFromCollection(StringTokenizer strTokens, Collection userCollection)
+    {
+        Album deleteAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
+        if (userCollection.remove(deleteAlbum)) System.out.println(deleteAlbum.toString() + " >> deleted.");
+        else System.out.println(deleteAlbum.toString() + " >> is not in the collection.");
+    }
+
+    /**
+     * Lends the user inputted album from the collection, if available
+     * @param strTokens tokenized string of user input, starting after the command
+     * @param userCollection the user's collection of albums
+     */
+    private void lendFromCollection(StringTokenizer strTokens, Collection userCollection)
+    {
+        Album lendAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
+        if (userCollection.lendingOut(lendAlbum)) System.out.println(lendAlbum.toString() +
+                " >> lending out and set to not available.");
+        else System.out.println(lendAlbum.toString() + " >> is not available.");
+    }
+
+    /**
+     * Returns the user inputted album to the collection, if it was unavailable
+     * @param strTokens tokenized string of user input, starting after the command
+     * @param userCollection the user's collection of albums
+     */
+    private void returnToCollection(StringTokenizer strTokens, Collection userCollection)
+    {
+        Album returnAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
+        if (userCollection.returnAlbum(returnAlbum)) System.out.println(returnAlbum.toString() +
+                " >> returning and set to available.");
+        else System.out.println(returnAlbum.toString() + " >> return cannot be completed.");
+    }
+
+    /**
      * Parses through the string the user inputted and calls the appropriate command from the collection class, sending
      * a newly made album that the user specified if necessary to be added, deleted, lent, or returned.
      * @param strTokens the tokenized string, by commas, the user inputted
@@ -32,53 +94,26 @@ public class CollectionManager
         switch (strTokens.nextToken())
         {
             case "A":
-                String title = strTokens.nextToken();
-                String artist = strTokens.nextToken();
-                Genre genre = Genre.toGenre(strTokens.nextToken());
-                Date releaseDate = new Date(strTokens.nextToken());
-                if (releaseDate.isValid() == false)
-                {
-                    System.out.println("Invalid Date!");
-                    break;
-                }
-
-                Album newAlbum = new Album(title, artist, genre, releaseDate, true);
-                if (userCollection.add(newAlbum)) System.out.println(newAlbum.toString() + " >> added.");
-                else System.out.println(newAlbum.toString() + " >> is already in the collection.");
+                addToCollection(strTokens, userCollection);
                 break;
-
             case "D":
-                Album deleteAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
-                if (userCollection.remove(deleteAlbum)) System.out.println(deleteAlbum.toString() + " >> deleted.");
-                else System.out.println(deleteAlbum.toString() + " >> is not in the collection.");
+                deleteFromCollection(strTokens, userCollection);
                 break;
-
             case "L":
-                Album lendAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
-                if (userCollection.lendingOut(lendAlbum)) System.out.println(lendAlbum.toString() +
-                        " >> lending out and set to not available.");
-                else System.out.println(lendAlbum.toString() + " >> is not available.");
+                lendFromCollection(strTokens, userCollection);
                 break;
-
             case "R":
-                Album returnAlbum = new Album(strTokens.nextToken(), strTokens.nextToken());
-                if (userCollection.returnAlbum(returnAlbum)) System.out.println(returnAlbum.toString() +
-                        " >> returning and set to available.");
-                else System.out.println(returnAlbum.toString() + " >> return cannot be completed.");
+                returnToCollection(strTokens, userCollection);
                 break;
-
             case "P":
                 userCollection.print();
                 break;
-
             case "PD":
                 userCollection.printByReleaseDate();
                 break;
-
             case "PG":
                 userCollection.printByGenre();
                 break;
-
             default:
                 return false;
         }
