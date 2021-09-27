@@ -1,7 +1,7 @@
-import java.util.Locale;
-
 /**
- *
+ * The enumertated class Genre, which contains the different genres, as well as methods to convert
+ * a string into a genre and a genre into an index or string
+ * @author Saipranav Kalapala, Neel Prabhu
  */
 public enum Genre
 {
@@ -13,6 +13,11 @@ public enum Genre
     private static final int POPINDEX = 3;
     private static final int UNKNOWNINDEX = 4;
 
+    /**
+     * Takes a genre and returns its appropriate index. Used when printing by genre order. The order that print by
+     * genre is printed in may be changed by changing the constant index values above, in ascending order.
+     * @return the genre index
+     */
     public int toIndex()
     {
         switch(this)
@@ -30,6 +35,12 @@ public enum Genre
         }
     }
 
+    /**
+     * Takes a string from user input and converts the string into a genre. If the user inputted a genre that is
+     * not in this enumerated class, it gets set to Unknown.
+     * @param genreString the user inputted string that specifies the genre of the album
+     * @return the genre that the string represents, or Unknown if it does not exist in this class
+     */
     public static Genre toGenre(String genreString)
     {
         switch (genreString.toLowerCase())
@@ -47,6 +58,10 @@ public enum Genre
         }
     }
 
+    /**
+     * Converts a genre into the string for printing the album's genre.
+     * @return the string name of the genre given
+     */
     @Override
     public String toString()
     {

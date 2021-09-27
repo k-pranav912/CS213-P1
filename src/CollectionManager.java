@@ -1,14 +1,31 @@
+/**
+ * The Collection Manager class, which runs a while loop that takes command line inputs using the Scanner class, parses
+ * them using the String Tokenizer class for valid commands to make changes to the album collection until the user runs
+ * the quit command.
+ * @author Saipranav Kalapala, Neel Prabhu
+ */
+
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class CollectionManager
 {
+    /**
+     * Exits the process. Called when the user enters "Q"
+     */
     public static void exitManager()
     {
         System.out.println("Collection Manager terminated.");
         System.exit(0);
     }
 
+    /**
+     * Parses through the string the user inputted and calls the appropriate command from the collection class, sending
+     * a newly made album that the user specified if necessary to be added, deleted, lent, or returned.
+     * @param strTokens the tokenized string, by commas, the user inputted
+     * @param userCollection the collection of albums for this user
+     * @return false if the user entered an invalid command, true otherwise
+     */
     public boolean parseTokens(StringTokenizer strTokens, Collection userCollection)
     {
         if(strTokens.hasMoreTokens() == false) return false;
@@ -68,6 +85,10 @@ public class CollectionManager
         return true;
     }
 
+    /**
+     * The method called by RunProject1 that continuously runs in a while loop, taking in user inputs and calls
+     * parseTokens for every line entered, until the user quits using "Q"
+     */
     public void run()
     {
         Collection userCollection = new Collection();
