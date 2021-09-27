@@ -1,4 +1,13 @@
+/**
+ * Date class, which handles the implementation of a date system in the mm/dd/yyyy format
+ * The class either constructs an instance of date using a string in the format of "mm/dd/yyyy" or
+ * uses the Calendar class to create a date from the current locale. Implements the Comparable method
+ * to compare two instances of Date.
+ * @author Saipranav Kalapala, Neel Prabhu
+ */
+
 import java.util.Calendar;
+
 
 public class Date implements Comparable<Date>{
     private int year;
@@ -18,6 +27,10 @@ public class Date implements Comparable<Date>{
     private static final int febLeapDays = 29;
     private static final int minYear = 1980;
 
+    /**
+     * Constructor method which creates an instance of Date using the String format "mm/dd/yyyy"
+     * @param date String literal in "mm/dd/yyyy" format
+     */
     public Date(String date)
     {
         String[] tokens = date.split("/");
@@ -27,6 +40,9 @@ public class Date implements Comparable<Date>{
         this.day = Integer.parseInt(tokens[1]);
     }
 
+    /**
+     * Constructor method which creates an instance of Date using the Calendar class.
+     */
     public Date()
     {
         Calendar calInstance = Calendar.getInstance();
@@ -36,6 +52,11 @@ public class Date implements Comparable<Date>{
         this.day = calInstance.get(Calendar.DATE);
     } //create an object with today's date (see Calendar class)
 
+    /**
+     * Method to check if the year in a given date is a leap year.
+     * @param date An instance of Date.
+     * @return boolean value; true if the year is a leap year, false otherwise.
+     */
     private static boolean isLeap(Date date)
     {
         int start = 0;
@@ -52,6 +73,12 @@ public class Date implements Comparable<Date>{
         return false;
     }
 
+    /**
+     * Helper method to check if a certain value exists in an array.
+     * @param arr integer array
+     * @param key Integer value
+     * @return boolean; true if key exists in arr, false otherwise.
+     */
     private static boolean check(int[] arr, int key)
     {
         for (int j : arr) {
@@ -60,6 +87,14 @@ public class Date implements Comparable<Date>{
         return false;
     }
 
+    /**
+     * Method that check whether a Date instance is valid or not.
+     * Conditions for validity:
+     * Current year > Year > 1980
+     * 0 < Day <= 28/29/30/31 (based on month)
+     * 0 < Month <= 12
+     * @return boolean; true is Date is a valid instance, false otherwise.
+     */
     public boolean isValid()
     {
         if (this.year < minYear) return false;
@@ -90,6 +125,11 @@ public class Date implements Comparable<Date>{
         }
     }
 
+    /**
+     * Mehtod to compare a Date Instance with another target Date instance.
+     * @param date Date instance to be compared to.
+     * @return Integer; < 1 if Target Date is later, 0 if Target date is same, 1 if Target Date is earlier.
+     */
     @Override
     public int compareTo(Date date)
     {
@@ -111,17 +151,29 @@ public class Date implements Comparable<Date>{
         return 1;
     }
 
+    /**
+     * Method to return a String literal of the Date instance.
+     * @return String literal in the "mm/dd/yyyy" format.
+     */
     @Override
     public String toString()
     {
         return this.month + "/" + this.day + "/" + this.year;
     }
 
+    /**
+     * Method to return an indexed integer representation of the Date instance.
+     * @return integer; yyyymmdd format.
+     */
     public int getDateIndex()
     {
         return (this.year * 10000) + (this.month * 100) + (this.day);
     }
 
+    /**
+     * Testbed main function for the Date class.
+     * @param args Commandline arguments
+     */
     public static void main(String[] args)
     {
 
@@ -142,6 +194,8 @@ public class Date implements Comparable<Date>{
         } else {
             System.out.println("Test2: Invalid Date!");
         }
+
+        System.out.println(test2.compareTo(test1));
 
         // Test 3
         // Year less than 1980

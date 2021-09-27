@@ -1,5 +1,8 @@
 import java.util.Locale;
 
+/**
+ *
+ */
 public enum Genre
 {
     CLASSICAL, COUNTRY, JAZZ, POP, UNKNOWN;
