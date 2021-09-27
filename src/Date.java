@@ -3,7 +3,7 @@
  * The class either constructs an instance of date using a string in the format of "mm/dd/yyyy" or
  * uses the Calendar class to create a date from the current locale. Implements the Comparable method
  * to compare two instances of Date.
- * @author Saipranav Kalapala, Neel Prabhu
+ * @author  Neel Prabhu, Saipranav Kalapala
  */
 
 import java.util.Calendar;
