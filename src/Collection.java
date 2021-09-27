@@ -96,14 +96,28 @@ public class Collection {
         return true;
     }
 
+    /**
+     * Method to lend an album.
+     * Checks whether an album exists in the collection, and whether it is available to be lent
+     * and changes availability if possible.
+     * @param album Target album to be lent.
+     * @return boolean; true is album could be lent and is lent, false otherwise.
+     */
     public boolean lendingOut(Album album)
     {
         int indexToLend = find(album);
         if (indexToLend < 0) return false;
         if(albums[indexToLend].changeAvailability(false) == false) return false;
         return true;
-    } //set to not available
+    }
 
+    /**
+     * Method to return an album.
+     * Checks whether an album exists in the collection, and whether it is being lent out
+     * currently, and changes availability if possible.
+     * @param album Target album to be lent.
+     * @return boolean; true is album could be returned and is returned, false otherwise.
+     */
     public boolean returnAlbum(Album album)
     {
         int indexToReturn = find(album);
@@ -112,6 +126,9 @@ public class Collection {
         return true;
     } //set to available
 
+    /**
+     * Method to print the album with specifying the order.
+     */
     public void print()
     {
         if(numAlbums <= 0)
@@ -128,6 +145,11 @@ public class Collection {
         System.out.println("*End of list");
     } //display the list without specifying the order
 
+    /**
+     * Method to sort an integer array using Insertion Sort.
+     * @param arr Integer array.
+     * @return Integer array sorted in the ascending order.
+     */
     public static int[] arrSort(int[] arr)
     {
         for (int i = 0; i < arr.length; i++)
@@ -146,6 +168,12 @@ public class Collection {
         return arr;
     }
 
+    /**
+     * Method to check if a certain value (key) exists in the integer array.
+     * @param arr Integer array
+     * @param key Integer value
+     * @return boolean; true if key exists in the array, false otherwise.
+     */
     private boolean checkArray(int[] arr, int key)
     {
         for (int i = 0; i < arr.length; i++)
@@ -155,6 +183,12 @@ public class Collection {
         return false;
     }
 
+    /**
+     * Method to generate an array based on the indexed dates of all the albums in the collection.
+     * Parses through the collection, collects all the indexed dates from the albums into an array,
+     * and sorts the array in ascending order.
+     * @return sorted array containing all the indexed dates of the albums in the collection.
+     */
     private int[] genDateArray()
     {
         int[] tempArr = new int[numAlbums];
@@ -174,6 +208,10 @@ public class Collection {
         return tempArr;
     }
 
+    /**
+     * Method to print the albums in the collection sorted by release date.
+     * Uses a sorted array of indexed dates to match and print albums in ascending order, from oldest to latest.
+     */
     public void printByReleaseDate()
     {
         if (numAlbums <= 0)
@@ -198,6 +236,10 @@ public class Collection {
 
     }
 
+    /**
+     * Method to print albums in the collection sorted by Genre.
+     * The genres are sorted by ascending alphabetical order.
+     */
     public void printByGenre()
     {
         if(numAlbums <= 0)
